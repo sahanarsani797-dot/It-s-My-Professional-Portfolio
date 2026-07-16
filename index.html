@@ -36,28 +36,40 @@ align-items:center;
 .profile{display:flex;align-items:center;justify-content:center;gap:50px;width:100%}
 
 /* FLIP CARD */
-.profile-card{width:260px;height:320px;perspective:1000px}
-.profile-inner{width:100%;height:100%;transition:.8s;transform-style:preserve-3d}
-.profile-card:hover .profile-inner{transform:rotateY(180deg)}
-
-.profile-front,.profile-back{
-position:absolute;width:100%;height:100%;
+.profile-card{
+width:260px;height:320px;
 border-radius:16px;border:2px solid #00c6ff;
-backface-visibility:hidden;
-display:flex;align-items:center;justify-content:center
+overflow:hidden;
+background:#020b1a
 }
-.profile-front img{width:100%;height:100%;object-fit:cover}
-.profile-back{
-background:#020b1a;
-transform:rotateY(180deg);
-flex-direction:column;text-align:center;padding:20px
-}
-.profile-back h3{margin-bottom:6px}
-.profile-back h4{color:#00c6ff;margin-bottom:12px}
+.profile-card img{width:100%;height:100%;object-fit:cover}
 
 .resume-btn{
 padding:8px 18px;background:#00c6ff;border:none;
 border-radius:20px;cursor:pointer;font-weight:bold
+}
+
+/* TOP RIGHT RESUME BUTTON (sits under nav) */
+.top-resume-btn{
+position:fixed;
+top:75px;
+right:40px;
+padding:8px 20px;
+background:#00c6ff;
+color:#020b1a;
+border:none;
+border-radius:20px;
+cursor:pointer;
+font-weight:bold;
+z-index:1050;
+transition:transform .35s ease, opacity .35s ease;
+transform:translateY(0);
+opacity:1
+}
+.top-resume-btn.hide{
+transform:translateY(-120%);
+opacity:0;
+pointer-events:none
 }
 
 /* MODALS */
@@ -93,48 +105,21 @@ margin:auto
 }
 .skill-box{
 position:relative;
-height:180px;
+min-height:180px;
 border:2px solid #00c6ff;
 border-radius:20px;
-cursor:pointer;
 overflow:hidden;
 background:transparent;
 display:flex;
+flex-direction:column;
 align-items:center;
 justify-content:center;
 text-align:center;
 padding:20px;
+gap:10px
 }
 .skill-title{z-index:2;font-weight:bold;color:#00c6ff}
-.skill-info{display:none;z-index:2;font-size:14px;line-height:1.6}
-
-.skill-box::before{
-content:"";
-position:absolute;
-width:220%;
-height:120%;
-top:-60%;
-left:-120%;
-background:radial-gradient(
-ellipse at center,
-rgba(0,198,255,0.6),
-rgba(0,198,255,0.15),
-transparent 70%
-);
-filter:blur(18px);
-opacity:0;
-transform:rotate(45deg);
-}
-.skill-box.active::before{
-animation:glowSweep 1.3s ease-in-out;
-opacity:1;
-}
-@keyframes glowSweep{
-from{transform:translate(-40%,-40%) rotate(45deg)}
-to{transform:translate(140%,140%) rotate(45deg)}
-}
-.skill-box.active .skill-title{display:none}
-.skill-box.active .skill-info{display:block}
+.skill-info{z-index:2;font-size:14px;line-height:1.6}
 
 /* CERTIFICATES — SINGLE LINE */
 .cert-grid{
@@ -176,6 +161,8 @@ font-size:30px;color:#00c6ff;display:block;margin-bottom:6px
 
 <body>
 
+<button class="top-resume-btn" onclick="openResume()">View Resume</button>
+
 <nav>
 <b>SAHANA R</b>
 <div>
@@ -194,16 +181,7 @@ font-size:30px;color:#00c6ff;display:block;margin-bottom:6px
 <div class="profile">
 
 <div class="profile-card">
-<div class="profile-inner">
-<div class="profile-front">
 <img src="https://uploads.onecompiler.io/43cumd4er/449kyheux/IMG-20251219-WA0053-removebg-preview~2%20(1).png">
-</div>
-<div class="profile-back">
-<h3>SAHANA R</h3>
-<h4>MY RESUME</h4>
-<button class="resume-btn" onclick="openResume()">View Resume</button>
-</div>
-</div>
 </div>
 
 <div>
@@ -218,7 +196,7 @@ font-size:30px;color:#00c6ff;display:block;margin-bottom:6px
 <section id="about">
 <h2>About</h2>
 <div class="box">
-I am a BCA student with a strong interest in software development and modern computing technologies. I have a solid foundation in programming, web development, and database fundamentals. Through academic projects, I have gained hands-on experience in building responsive websites and Python-based applications. I enjoy solving real-world problems using logical thinking and clean coding practices. I am focused on continuous learning and professional growth in the IT field.
+I am BCA Graduate with Basic understanding of computer applications and programming. I enjoy learning new technologies and improving my technical skills.I can work well both independently And as part of a team. I am looking for opportunity to gain practical experience in IT fields. 
 </div>
 </section>
 
@@ -227,43 +205,48 @@ I am a BCA student with a strong interest in software development and modern com
 <h2>Skills</h2>
 <div class="skills-grid">
 
-<div class="skill-box" onclick="toggleSkill(this)">
+<div class="skill-box">
 <span class="skill-title">Programming Languages</span>
 <span class="skill-info">
-C / C++ – Core programming concepts<br>
-Java – OOP, desktop & backend development<br>
-Python – Automation, data analysis, AI basics<br>
-JavaScript – Web interactivity<br>
-PHP – Server-side web development
+• C Programming
+<br>
+• Java Development
+<br>
+• Python Programming
 </span>
 </div>
 
-<div class="skill-box" onclick="toggleSkill(this)">
+<div class="skill-box">
 <span class="skill-title">Web Development</span>
 <span class="skill-info">
-HTML5, CSS3<br>
-JavaScript (ES6+)<br>
-Bootstrap / Tailwind CSS<br>
-Responsive Web Design<br>
-Backend: PHP / Python (Flask, Django basics)
+• HTML & CSS
+<br>
+• JavaScript ES6
+<br>
+• Responsive Design
 </span>
 </div>
 
-<div class="skill-box" onclick="toggleSkill(this)">
+<div class="skill-box">
 <span class="skill-title">Database Management</span>
 <span class="skill-info">
-MySQL<br>
-PostgreSQL<br>
-SQL queries & database design
+• MySQL Database
+<br>
+• SQL Queries
+<br>
+• Database Design
+
 </span>
 </div>
 
-<div class="skill-box" onclick="toggleSkill(this)">
+<div class="skill-box">
 <span class="skill-title">Software & Tools</span>
 <span class="skill-info">
-Git & GitHub<br>
-VS Code<br>
-Postman (API testing)
+• Git & GitHub
+<br>
+• Visual Studio
+<br>
+• Postman API
 </span>
 </div>
 
@@ -279,6 +262,18 @@ The India Weather Dashboard is a web-based application that visualizes weather d
 <br><br>
 <a href="https://cloudy-harlequin-08xuorld2h.edgeone.app/" target="_blank" style="color:#00c6ff">View Project</a>
 </div>
+<br>
+<div class="box">
+<b>Weather App Report</b><br><br>
+The Weather App is a responsive web application developed using HTML, CSS, JavaScript, and the OpenWeatherMap API. It enables users to search any city and instantly view real-time weather details, including temperature, humidity, wind speed, and weather conditions through API integration.<br><br>
+<a href="https://sahanarsani797-dot.github.io/Weather-App-Using-OpenWeatherMap-API-/" target="_blank" style="color:#00c6ff">View Project</a>
+</div>
+<br>
+<div class="box">
+<b>My Portfolio</b><br><br>
+The Personal Portfolio Website is a responsive web application developed to showcase my profile, technical skills, projects, certifications, education, and contact information. Built using HTML, CSS, and JavaScript, it features a modern, responsive design that provides a smooth experience across desktop and mobile devices. This portfolio reflects my web development skills and serves as my professional online presence.<br><br>
+<a href="https://architectural-aquamarine-dgyzlppcp1.edgeone.app/" target="_blank" style="color:#00c6ff">View Project</a>
+</div>
 </section>
 
 <!-- EDUCATION -->
@@ -289,6 +284,8 @@ The India Weather Dashboard is a web-based application that visualizes weather d
 Kuvempu University, ShankaraGhatta<br>
 Government First Grade College, Thirthahalli<br>
 Batch: 2023 – 2026
+<br>
+CGPA-8.66
 <br><br>
 <b>Key Qualifications</b>
 <ul>
@@ -296,7 +293,6 @@ Batch: 2023 – 2026
 <li>Web technologies: HTML, CSS, JavaScript</li>
 <li>Experience with academic projects and labs</li>
 <li>Strong interest in Full-Stack & AI-based applications</li>
-<li>Good logical and problem-solving skills</li>
 </ul>
 </div>
 </section>
@@ -307,25 +303,52 @@ Batch: 2023 – 2026
 <div class="cert-grid">
 
 <div class="cert-box">
-<b>Android Application Development</b><br>
-Completed a certified Android Application Development workshop with hands-on exposure to mobile app design, core Android components, and practical implementation techniques, strengthening skills in modern mobile application development.
-<img src="https://uploads.onecompiler.io/43cumd4er/449kyheux/Certificate%20of%20appriciation%20(1)%20(1)_page-0001.webp"
+<b>Front-end Web Development</b><br>
+Completed a 6-week Front-End Web Development internship, building responsive websites using HTML, CSS, and JavaScript.
+<img src="https://uploads.onecompiler.io/43faapvtu/1784186253822/WhatsApp%20Image%202026-07-15%20at%209.55.59%20PM%20(1).jpeg"
+onclick="openCert(this.src)">
+</div>
+
+<div class="cert-box">
+<b>Cyber Security</b><br>
+Completed a foundational cybersecurity course covering online safety, cyber threats, and security best practices.<img src="https://uploads.onecompiler.io/43faapvtu/1784186230450/WhatsApp%20Image%202026-07-15%20at%209.55.17%20PM.jpeg"
+onclick="openCert(this.src)">
+</div>
+
+<div class="cert-box">
+<b>Android App Development</b><br>
+Successfully completed a hands-on workshop on Android application development and mobile app fundamentals.
+<img src="https://uploads.onecompiler.io/43faapvtu/1784186268338/WhatsApp%20Image%202026-07-15%20at%209.56.00%20PM%20(1).jpeg"
+onclick="openCert(this.src)">
+</div>
+
+<div class="cert-box">
+<b>Artificial Intelligence Fundamentals</b><br>
+Earned a certification in web development fundamentals, covering HTML, CSS, JavaScript, and responsive web design.
+<img src="https://uploads.onecompiler.io/44b2dhp54/1784187342867/ChuFHes1lZ.png"
 onclick="openCert(this.src)">
 </div>
 
 <div class="cert-box">
 <b>Web Development Fundamentals</b><br>
-Certified in Web Development Fundamentals by IBM SkillsBuild, demonstrating a solid understanding of HTML, CSS, and responsive web principles, with the ability to build structured, user-friendly web interfaces.
-<img src="https://uploads.onecompiler.io/43cumd4er/449kurrkf/IBMDesign20260104-31-d2w945_page-0001.jpg"
+Earned a certification in web development fundamentals, covering HTML, CSS, JavaScript, and responsive web design.
+<img src="https://uploads.onecompiler.io/43faapvtu/1784186237193/WhatsApp%20Image%202026-07-15%20at%209.55.56%20PM.jpeg"
 onclick="openCert(this.src)">
 </div>
 
 <div class="cert-box">
-<b>Introduction to Cybersecurity</b><br>
-Earned a professional credential in Introduction to Cybersecurity from Cisco Networking Academy, gaining foundational knowledge of cyber threats, security practices, and safe digital behavior relevant to modern IT environments.
-<img src="https://uploads.onecompiler.io/43cumd4er/449kurrkf/I2CSUpdate20260104-31-znvieg_page-0001.jpg"
+<b>Web Development Internship (AXCENTRA)</b><br>
+Successfully completed a 6-week internship in Web Development, gaining practical experience in modern web technologies.
+<img src="https://uploads.onecompiler.io/43faapvtu/1784186223920/WhatsApp%20Image%202026-07-15%20at%209.54.23%20PM.jpeg"
 onclick="openCert(this.src)">
 </div>
+
+<div class="cert-box">
+<b>Python Programming (AXCENTRA)</b><br>
+Successfully completed a 6-week Python Programming internship, developing core programming and problem-solving skills.<img src="https://uploads.onecompiler.io/43faapvtu/1784186260887/WhatsApp%20Image%202026-07-15%20at%209.56.00%20PM.jpeg"
+onclick="openCert(this.src)">
+</div>
+
 
 </div>
 </section>
@@ -334,18 +357,16 @@ onclick="openCert(this.src)">
 <section id="contact">
 <h2>Contact</h2>
 <div class="contact-icons">
-<a class="contact-icon" href="mailto:yourmail@example.com"><i class="fa-solid fa-envelope"></i>Email</a>
-<a class="contact-icon" href="#"><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
-<a class="contact-icon" href="#"><i class="fa-brands fa-instagram"></i>Instagram</a>
-<a class="contact-icon" href="#"><i class="fa-brands fa-facebook"></i>Facebook</a>
-<a class="contact-icon" href="#"><i class="fa-brands fa-github"></i>GitHub</a>
+<a class="contact-icon" href="mailto:sahanarsani797@gmail.com"><i class="fa-solid fa-envelope"></i>Email</a>
+<a class="contact-icon" href="https://www.linkedin.com/in/sahana-r-194249378?utm_source=share_via&utm_content=profile&utm_medium=member_android"><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
+<a class="contact-icon" href="https://github.com/sahanarsani797-dot"><i class="fa-brands fa-github"></i>GitHub</a>
 </div>
 </section>
 
 <!-- MODALS -->
 <div class="resume-modal" id="resumeModal" onclick="closeResume()">
 <span>✖</span>
-<img src="https://uploads.onecompiler.io/43cumd4er/449kyheux/sahana%20%20Resume_page-0001.jpg">
+<img src="https://uploads.onecompiler.io/44b2dhp54/1784190706254/Grey%20Minimalist%20Professional%20Resume%20Document%20A4.png">
 </div>
 
 <div class="cert-modal" id="certModal" onclick="closeCert()">
@@ -367,12 +388,16 @@ document.getElementById("certModal").style.display="flex";
 function closeCert(){
 document.getElementById("certModal").style.display="none";
 }
-function toggleSkill(el){
-document.querySelectorAll('.skill-box').forEach(box=>{
-if(box!==el){box.classList.remove('active')}
-});
-el.classList.toggle('active');
+
+/* Show resume button at top, minimize on scroll down */
+const resumeBtn = document.querySelector(".top-resume-btn");
+window.addEventListener("scroll", function(){
+if(window.scrollY > 60){
+resumeBtn.classList.add("hide");
+}else{
+resumeBtn.classList.remove("hide");
 }
+});
 </script>
 
 </body>
